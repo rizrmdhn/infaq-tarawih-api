@@ -1,0 +1,19 @@
+{
+  "name": "infaq-tarawih-api",
+  "version": "1.0.0",
+  "description": "simple infaq counting api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rizrmdhn/infaq-tarawih-api.git"
+  },
+  "author": "rizrmdhn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rizrmdhn/infaq-tarawih-api/issues"
+  },
+  "homepage": "https://github.com/rizrmdhn/infaq-tarawih-api#readme"
+}
