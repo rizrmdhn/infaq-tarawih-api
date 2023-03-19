@@ -17,6 +17,12 @@ exports.up = (pgm) => {
             type: 'TEXT',
             notNull: true,
         },
+        role: {
+            type: 'TEXT',
+            notNull: true,
+            default: 'user',
+        }
+
     });
 };
 
