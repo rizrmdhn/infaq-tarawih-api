@@ -5,9 +5,8 @@ exports.up = (pgm) => {
             primaryKey: true,
         },
         date: {
-            type: 'timestamp',
+            type: 'TEXT',
             notNull: true,
-            default: pgm.func('current_timestamp')
         },
         total: {
             type: 'integer',

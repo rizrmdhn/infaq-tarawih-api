@@ -1,12 +1,13 @@
+/* istanbul ignore file */
 const pool = require('../src/Infrastructures/database/postgres/pool');
 
 const InfaqTableTestHelper = {
     async addInfaq({
-        id = 'infaq-123', total = 1000, ownerId = 'user-123',
+        id = 'infaq-123', date = new Date().toISOString(), total = 1000, ownerId = 'user-123',
     }) {
         const query = {
-            text: 'INSERT INTO infaq VALUES($1, $2, $3)',
-            values: [id, total, ownerId],
+            text: 'INSERT INTO infaq VALUES($1, $2, $3, $4)',
+            values: [id, date, total, ownerId],
         };
 
         await pool.query(query);
@@ -25,7 +26,7 @@ const InfaqTableTestHelper = {
     },
 
     async cleanTable() {
-        await pool.query('DELETE FROM thread WHERE 1=1');
+        await pool.query('DELETE FROM infaq WHERE 1=1');
     },
 
 };
