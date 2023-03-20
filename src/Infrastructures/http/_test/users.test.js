@@ -153,6 +153,52 @@ describe('/users endpoint', () => {
         });
     });
 
+    describe('when Get /user/me', () => {
+        it('should response 200 and user profile', async () => {
+            // Arrange
+            const loginPayload = {
+                username: 'dicoding',
+                password: 'secret',
+            }
+
+            const server = await createServer(container);
+
+            await server.inject({
+                method: 'POST',
+                url: '/users',
+                payload: {
+                    username: loginPayload.username,
+                    password: loginPayload.password,
+                    fullname: 'Dicoding Indonesia',
+                }
+            });
+
+            const responseAuth = await server.inject({
+                method: 'POST',
+                url: '/authentications',
+                payload: loginPayload,
+            });
+
+            const { data } = JSON.parse(responseAuth.payload);
+
+            const { accessToken } = data;
+
+
+            // Action
+            const response = await server.inject({
+                method: 'GET',
+                url: '/user/me',
+                headers: { Authorization: `Bearer ${accessToken}` },
+            });
+
+            // Assert
+            const responseJson = JSON.parse(response.payload);
+            expect(response.statusCode).toEqual(200);
+            expect(responseJson.status).toEqual('success');
+            expect(responseJson.data.user).toBeDefined();
+        });
+    });
+
     describe('when GET /users', () => {
         it('should response 200 and list of users', async () => {
             // Arrange
