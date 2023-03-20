@@ -55,13 +55,33 @@ describe('InfaqRepositoryPostgres', () => {
         describe('getInfaqs function', () => {
             it('should return infaqs correctly', async () => {
                 // Arrange
+                await UsersTableTestHelper.addUser({ id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia' });
+
+                const dates = new Date().toISOString();
+
+                await InfaqTableTestHelper.addInfaq({ id: 'infaq-123', date: dates, total: 10000, ownerId: 'user-123' });
+                await InfaqTableTestHelper.addInfaq({ id: 'infaq-124', date: dates, total: 20000, ownerId: 'user-123' });
+
                 const infaqRepositoryPostgres = new InfaqRepositoryPostgres(pool, {});
 
                 // Action 
                 const infaqs = await infaqRepositoryPostgres.getInfaqs();
 
                 // Assert
-                expect(infaqs).toEqual([]);
+                expect(infaqs).toEqual([
+                    {
+                        id: 'infaq-123',
+                        total: 10000,
+                        date: dates,
+                        ownerId: 'user-123',
+                    },
+                    {
+                        id: 'infaq-124',
+                        total: 20000,
+                        date: dates,
+                        ownerId: 'user-123',
+                    },
+                ]);
             });
         });
 

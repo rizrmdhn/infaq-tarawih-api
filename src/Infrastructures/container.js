@@ -31,6 +31,8 @@ const AddInfaqUseCase = require('../Applications/use_case/AddInfaqUseCase');
 const GetInfaqUseCase = require('../Applications/use_case/GetInfaqUseCase');
 const DetailInfaqUseCase = require('../Applications/use_case/DetailInfaqUseCase');
 const DeleteInfaqUseCase = require('../Applications/use_case/DeleteInfaqUseCase');
+const GetOwnProfileUseCase = require('../Applications/use_case/GetOwnProfileUseCase');
+const GetAllUsersUseCase = require('../Applications/use_case/GetAllUsersUseCase');
 
 
 // creating container
@@ -223,6 +225,32 @@ container.register([
                 {
                     name: 'infaqRepository',
                     internal: infaqRepository.name,
+                },
+            ],
+        },
+    },
+    {
+        key: GetOwnProfileUseCase.name,
+        Class: GetOwnProfileUseCase,
+        parameter: {
+            injectType: 'destructuring',
+            dependencies: [
+                {
+                    name: 'userRepository',
+                    internal: UserRepository.name,
+                },
+            ],
+        },
+    },
+    {
+        key: GetAllUsersUseCase.name,
+        Class: GetAllUsersUseCase,
+        parameter: {
+            injectType: 'destructuring',
+            dependencies: [
+                {
+                    name: 'userRepository',
+                    internal: UserRepository.name,
                 },
             ],
         },
