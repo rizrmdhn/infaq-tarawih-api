@@ -17,6 +17,14 @@ const routes = (handler) => ([
         path: '/infaq/{infaqId}',
         handler: handler.getInfaqByIdHandler,
     },
+    {
+        method: 'DELETE',
+        path: '/infaq/{infaqId}',
+        handler: handler.deleteInfaqByIdHandler,
+        options: {
+            auth: 'infaqapi_jwt',
+        }
+    },
 ]);
 
 module.exports = routes;

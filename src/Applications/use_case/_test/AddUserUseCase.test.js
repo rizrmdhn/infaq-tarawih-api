@@ -16,6 +16,7 @@ describe('AddUserUseCase', () => {
             id: 'user-123',
             username: useCasePayload.username,
             fullname: useCasePayload.fullname,
+            role: 'user',
         });
 
         /** creating dependency of use case */

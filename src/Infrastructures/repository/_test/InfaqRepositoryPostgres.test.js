@@ -52,6 +52,19 @@ describe('InfaqRepositoryPostgres', () => {
             });
         });
 
+        describe('getInfaqs function', () => {
+            it('should return infaqs correctly', async () => {
+                // Arrange
+                const infaqRepositoryPostgres = new InfaqRepositoryPostgres(pool, {});
+
+                // Action 
+                const infaqs = await infaqRepositoryPostgres.getInfaqs();
+
+                // Assert
+                expect(infaqs).toEqual([]);
+            });
+        });
+
         describe('getInfaqById function', () => {
             it('should throw NotFoundError when infaq not found', async () => {
                 // Arrange
@@ -78,6 +91,37 @@ describe('InfaqRepositoryPostgres', () => {
                     total: 10000,
                     ownerId: 'user-123',
                 });
+            });
+        });
+
+        describe('deleteInfaqById function', () => {
+            it('should throw NotFoundError when infaq not found', async () => {
+                // Arrange
+                await UsersTableTestHelper.addUser({ id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia' });
+
+                await InfaqTableTestHelper.addInfaq({ id: 'infaq-123', date: new Date().toISOString(), total: 10000, ownerId: 'user-123' });
+
+                const infaqRepositoryPostgres = new InfaqRepositoryPostgres(pool, {});
+
+                // Action & Assert
+                await expect(infaqRepositoryPostgres.deleteInfaqById('infaq-124')).rejects.toThrowError(NotFoundError);
+            });
+
+            it('should delete infaq correctly', async () => {
+                // Arrange
+                await UsersTableTestHelper.addUser({ id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia' });
+
+                await InfaqTableTestHelper.addInfaq({ id: 'infaq-123', date: new Date().toISOString(), total: 10000, ownerId: 'user-123' });
+
+                const infaqRepositoryPostgres = new InfaqRepositoryPostgres(pool, {});
+
+                // Action
+                await infaqRepositoryPostgres.deleteInfaqById('infaq-123');
+
+                // Assert
+                const infaqs = await InfaqTableTestHelper.findInfaqById('infaq-123');
+
+                expect(infaqs).toHaveLength(0);
             });
         });
     });

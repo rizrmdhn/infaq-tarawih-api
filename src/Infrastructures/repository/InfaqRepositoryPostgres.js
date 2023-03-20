@@ -45,6 +45,21 @@ class InfaqRepositoryPostgres extends infaqRepository {
 
         return result.rows[0];
     }
+
+    async deleteInfaqById(infaqId) {
+
+        const query = {
+            text: 'DELETE FROM infaq WHERE id = $1 RETURNING id',
+            values: [infaqId],
+        }
+
+        const result = await this._pool.query(query);
+
+        if (!result.rowCount) {
+            throw new NotFoundError('Data tidak ditemukan');
+        }
+
+    }
 }
 
 module.exports = InfaqRepositoryPostgres;

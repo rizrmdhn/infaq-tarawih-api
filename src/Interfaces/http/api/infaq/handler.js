@@ -1,6 +1,7 @@
 const AddInfaqUseCase = require('../../../../Applications/use_case/AddInfaqUseCase');
 const GetInfaqUseCase = require('../../../../Applications/use_case/GetInfaqUseCase');
 const DetailInfaqUseCase = require('../../../../Applications/use_case/DetailInfaqUseCase');
+const DeleteInfaqUseCase = require('../../../../Applications/use_case/DeleteInfaqUseCase');
 
 class InfaqHandler {
     constructor(container) {
@@ -9,6 +10,7 @@ class InfaqHandler {
         this.postInfaqHandler = this.postInfaqHandler.bind(this);
         this.getInfaqHandler = this.getInfaqHandler.bind(this);
         this.getInfaqByIdHandler = this.getInfaqByIdHandler.bind(this);
+        this.deleteInfaqByIdHandler = this.deleteInfaqByIdHandler.bind(this);
     }
 
     async postInfaqHandler(request, h) {
@@ -45,7 +47,7 @@ class InfaqHandler {
         };
     }
 
-    async getInfaqByIdHandler(request, h) {
+    async getInfaqByIdHandler(request) {
         const detailInfaqUseCase = this._container.getInstance(DetailInfaqUseCase.name);
 
         const useCasePayload = {
@@ -60,6 +62,21 @@ class InfaqHandler {
                 ...detailInfaq,
             },
         };
+    }
+
+    async deleteInfaqByIdHandler(request) {
+        const deleteInfaqUseCase = this._container.getInstance(DeleteInfaqUseCase.name);
+
+        const useCasePayload = {
+            infaqId: request.params.infaqId,
+        };
+
+        await deleteInfaqUseCase.execute(useCasePayload);
+
+        return {
+            status: 'success',
+            message: 'Data berhasil dihapus',
+        }
     }
 }
 

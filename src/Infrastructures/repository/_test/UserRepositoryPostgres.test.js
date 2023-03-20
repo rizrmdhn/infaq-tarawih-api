@@ -70,6 +70,7 @@ describe('UserRepositoryPostgres', () => {
         id: 'user-123',
         username: 'dicoding',
         fullname: 'Dicoding Indonesia',
+        role: 'user',
       }));
     });
   });

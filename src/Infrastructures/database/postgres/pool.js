@@ -9,17 +9,17 @@ const testConfig = {
     database: process.env.PGDATABASE_TEST,
 };
 
-const prodConfig = {
+const Config = {
     host: process.env.PGHOST,
     port: process.env.PGPORT,
     user: process.env.PGUSER,
     password: process.env.PGPASSWORD,
     database: process.env.PGDATABASE,
-    ssl: {
-        rejectUnauthorized: false
-    }
+    // ssl: {
+    //     rejectUnauthorized: false
+    // }
 }
 
-const pool = process.env.NODE_ENV === 'test' ? new Pool(testConfig) : new Pool(prodConfig);
+const pool = process.env.NODE_ENV === 'test' ? new Pool(testConfig) : new Pool(Config);
 
 module.exports = pool;

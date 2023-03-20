@@ -18,6 +18,7 @@ describe('a RegisteredUser entities', () => {
             id: 123,
             username: 'dicoding',
             fullname: 'Dicoding Indonesia',
+            role: 'user',
         };
 
         // Action and Assert
@@ -30,6 +31,7 @@ describe('a RegisteredUser entities', () => {
             id: 'user-123',
             username: 'dicoding',
             fullname: 'Dicoding Indonesia',
+            role: 'user',
         };
 
         // Action

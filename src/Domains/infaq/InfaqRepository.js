@@ -10,6 +10,11 @@ class InfaqRepository {
     async getInfaqById(infaqId) {
         throw new Error('INFAQ_REPOSITORY.METHOD_NOT_IMPLEMENTED');
     }
+
+    async deleteInfaqById(infaqId) {
+        throw new Error('INFAQ_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+    }
+
 }
 
 module.exports = InfaqRepository;

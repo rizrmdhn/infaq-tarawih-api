@@ -30,6 +30,7 @@ const RefreshAuthenticationUseCase = require('../Applications/use_case/RefreshAu
 const AddInfaqUseCase = require('../Applications/use_case/AddInfaqUseCase');
 const GetInfaqUseCase = require('../Applications/use_case/GetInfaqUseCase');
 const DetailInfaqUseCase = require('../Applications/use_case/DetailInfaqUseCase');
+const DeleteInfaqUseCase = require('../Applications/use_case/DeleteInfaqUseCase');
 
 
 // creating container
@@ -203,6 +204,19 @@ container.register([
     {
         key: DetailInfaqUseCase.name,
         Class: DetailInfaqUseCase,
+        parameter: {
+            injectType: 'destructuring',
+            dependencies: [
+                {
+                    name: 'infaqRepository',
+                    internal: infaqRepository.name,
+                },
+            ],
+        },
+    },
+    {
+        key: DeleteInfaqUseCase.name,
+        Class: DeleteInfaqUseCase,
         parameter: {
             injectType: 'destructuring',
             dependencies: [

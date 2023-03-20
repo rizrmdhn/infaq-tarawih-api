@@ -9,5 +9,6 @@ describe('InfaqRepository interface', () => {
         await expect(infaqRepository.createInfaq()).rejects.toThrowError('INFAQ_REPOSITORY.METHOD_NOT_IMPLEMENTED');
         await expect(infaqRepository.getInfaqs()).rejects.toThrowError('INFAQ_REPOSITORY.METHOD_NOT_IMPLEMENTED');
         await expect(infaqRepository.getInfaqById()).rejects.toThrowError('INFAQ_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+        await expect(infaqRepository.deleteInfaqById()).rejects.toThrowError('INFAQ_REPOSITORY.METHOD_NOT_IMPLEMENTED');
     });
 });

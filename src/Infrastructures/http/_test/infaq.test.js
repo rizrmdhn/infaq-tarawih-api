@@ -176,4 +176,50 @@ describe('/infaq endpoint', () => {
             expect(getResponseJson.data).toBeDefined();
         });
     });
+
+    describe('when DELETE /infaq/{infaqId}', () => {
+        it('should response 404 if data not found', async () => {
+            // Action
+            const response = await server.inject({
+                method: 'DELETE',
+                url: '/infaq/123',
+                payload: {},
+                headers: { Authorization: `Bearer ${accessToken}` },
+            });
+
+            // Assert
+            const responseJson = JSON.parse(response.payload);
+            expect(response.statusCode).toEqual(404);
+            expect(responseJson.status).toEqual('fail');
+            expect(responseJson.message).toEqual('Data tidak ditemukan');
+        });
+
+        it('should response 200 if data found', async () => {
+            // Arrange
+            const response = await server.inject({
+                method: 'POST',
+                url: '/infaq',
+                payload: {
+                    total: 10000,
+                },
+                headers: { Authorization: `Bearer ${accessToken}` },
+            });
+
+            const { data: { infaqId } } = JSON.parse(response.payload);
+
+            // Action
+            const deleteResponse = await server.inject({
+                method: 'DELETE',
+                url: `/infaq/${infaqId}`,
+                payload: {},
+                headers: { Authorization: `Bearer ${accessToken}` },
+            });
+
+            // Assert
+            const deleteResponseJson = JSON.parse(deleteResponse.payload);
+            expect(deleteResponse.statusCode).toEqual(200);
+            expect(deleteResponseJson.status).toEqual('success');
+            expect(deleteResponseJson.message).toEqual('Data berhasil dihapus');
+        });
+    });
 });
